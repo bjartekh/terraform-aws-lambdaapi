@@ -1,3 +1,8 @@
+provider "aws" {
+  region = "eu-north-1"
+}
+
+
 module "company_platform_lambda" {
 
     source = "./modules/lambda"
@@ -7,9 +12,9 @@ module "company_platform_lambda" {
 module "company_platform_api_gateway" {
 
     source = "./modules/apigateway"
-    api_description = "this is a test"
-    api_name = "bjartetest"
-    apipath = "/testme"
+    api_description = "${var.api_description}"
+    api_name = "${var.api_name}"
+    apipath = "testme"
     stagename = "dev"
     lambda_execution_arn = module.company_platform_lambda.lambda_execution_arn
     depends_on = [ module.company_platform_lambda ]
